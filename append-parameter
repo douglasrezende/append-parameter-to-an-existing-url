@@ -1,0 +1,26 @@
+
+import java.net.URI;
+
+public class DouglasTest {
+
+    public static URI appendUri(String uri, String appendQuery) throws URISyntaxException {
+        URI oldUri = new URI(uri);
+
+        String newQuery = oldUri.getQuery();
+        if (newQuery == null) {
+            newQuery = appendQuery;
+        } else {
+            newQuery += "&" + appendQuery;  
+        }
+
+        return new URI(oldUri.getScheme(), oldUri.getAuthority(),
+                oldUri.getPath(), newQuery, oldUri.getFragment());
+    }
+
+    public static void main(String[] args) throws Exception {
+        System.out.println(appendUri("http://example.com", "name=Douglas"));
+        System.out.println(appendUri("http://example.com#fragment", "name=Douglas"));
+        System.out.println(appendUri("http://example.com?email=douglas.test@email.com", "name=Douglas"));
+        System.out.println(appendUri("http://example.com?email=douglas.test@email.com#fragment", "name=Douglas"));
+    }
+}
